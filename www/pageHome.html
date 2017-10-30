@@ -37,28 +37,64 @@
     <script src="../node_modules/onsenui/js/onsenui.min.js"></script>
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyA4EJ35_7kgT3UmAJ8q_QUOR6_8mGiODB8",
+            authDomain: "psupin-5905a.firebaseapp.com",
+            databaseURL: "https://psupin-5905a.firebaseio.com",
+            projectId: "psupin-5905a",
+            storageBucket: "psupin-5905a.appspot.com",
+            messagingSenderId: "46229521026"
+        };
+        firebase.initializeApp(config);
+    </script>
     <script type="text/javascript" src="js/index.js"></script>
     <title>PSUPIN</title>
 </head>
 
 <body>
-    <div>
-        <div class="toolbar">
-            <div class="toolbar__left">
-                <span class="toolbar-button" onclick="toIndex()">
-                    <img src="./img/iconPin.png" alt="" width="25" height="25" id="tool_bar_icon">
-                </span>
+
+    <ons-tabbar>
+        <ons-tab page="home.html" icon="ion-home" active="true"></ons-tab>
+        <ons-tab page="comments.html" icon="ion-chatbox-working"></ons-tab>
+        <ons-tab page="tags.html" icon="ion-ios-pricetag"></ons-tab>
+    </ons-tabbar>
+
+    <ons-template id="home.html">
+        <ons-page>
+            <ons-toolbar>
+                <div class="center" id="tool_tabber">PSUPIN</div>
+            </ons-toolbar>
+            <div>
+
             </div>
-        </div>
-        <div>
-            <p></p>
-            <ons-row>
-                <ons-col></ons-col>
-                <ons-col width="300px" id="main"></ons-col>
-                <ons-col></ons-col>
-            </ons-row>
-        </div>
-    </div>
+        </ons-page>
+    </ons-template>
+
+    <ons-template id="comments.html">
+        <ons-page>
+            <ons-toolbar>
+                <div class="center" id="tool_tabber">Post</div>
+            </ons-toolbar>
+            <div>
+
+            </div>
+        </ons-page>
+    </ons-template>
+
+    <ons-template id="tags.html">
+        <ons-page>
+            <ons-toolbar>
+                <div class="center" id="tool_tabber">Location</div>
+            </ons-toolbar>
+            <div>
+                
+            </div>
+        </ons-page>
+    </ons-template>
+
 </body>
 
 </html>

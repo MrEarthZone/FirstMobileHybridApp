@@ -30,3 +30,10 @@ input{
     font-size: 12px;
     line-height: 1.5;
 }
+#tool_tabber {
+    text-align: center;
+}
+#map {
+    height: 400px;
+    width: 100%;
+   }
