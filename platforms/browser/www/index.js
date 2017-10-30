@@ -1,11 +1,9 @@
+var url = "http://172.19.237.35:3000";
 $(document).ready(function () {
-    $("#login").click(function(){
-        alert("sssss");
-    });
     var chack = 0;
     //register
     $("#signup").click(function () {
-        $.post("http://172.19.74.131:3000/regis", {
+        $.post(url+"/regis", {
             email: $("#email").val(),
             name: $("#name").val(),
             username: $("#user").val(),
@@ -15,7 +13,7 @@ $(document).ready(function () {
     });
     //login
     $("#login").click(function () {
-        $.getJSON("http://172.19.74.131:3000/regis", function (data) {
+        $.getJSON(url+"/regis", function (data) {
             for (i = 0; i < data.length; i++) {
                 if (data[i].username == $("#name_login").val() && data[i].password == $("#pass_login").val()) {
                     localStorage.setItem("id", data[i].id);
@@ -63,7 +61,7 @@ $(document).ready(function () {
         var log_post = localStorage.getItem("log");
         var text_post = $("#comment").val();
         var img_post = localStorage.getItem("img");
-        $.post("http://172.19.74.131:3000/posts", {
+        $.post(url+"/posts", {
             post_id: id_post,
             image: img_post,
             text: text_post,
@@ -77,7 +75,7 @@ $(document).ready(function () {
     });
 
     //home
-    $.getJSON("http://172.19.74.131:3000/posts", function (data) {
+    $.getJSON(url+"/posts", function (data) {
         for (i = 0; i < data.length; i++) {
             var id_post = data[i].post_id;
             var image = data[i].image;
@@ -86,7 +84,7 @@ $(document).ready(function () {
         }
     });
     function search_name(id_post, image, comment) {
-        $.getJSON("http://172.19.74.131:3000/regis", function (data) {
+        $.getJSON(url+"/regis", function (data) {
             for (i = 0; i < data.length; i++) {
                 if (id_post == data[i].id) {
                     $("#show_post").prepend("<tr id=\"name_bar\"><td><br><p><b>What happen : </b>" + comment + "</p><br></td></tr>");
@@ -123,7 +121,7 @@ $(document).ready(function () {
             position: uluru,
             map: map
         });
-        $.getJSON("http://172.19.74.131:3000/posts", function (data) {
+        $.getJSON(url+"/posts", function (data) {
             for (i = 0; i < data.length; i++) {
                 var lat = data[i].lat;
                 var log = data[i].log;
@@ -137,7 +135,7 @@ $(document).ready(function () {
         });
     }
     //setting
-    $.getJSON("1http://172.19.74.131:3000/regis", function (data) {
+    $.getJSON(url+"/regis", function (data) {
         for (i = 0; i < data.length; i++) {
             if (data[i].id == localStorage.getItem("id")) {
                 $("#email_setting").attr("value", data[i].email);
@@ -151,7 +149,7 @@ $(document).ready(function () {
                     data[position].username = $("#user_setting").val();
                     data[position].password = $("#password_setting").val();
                     $.ajax({
-                        url: "http://172.19.74.131:3000/regis/" + data[position].id,
+                        url: url+"/regis/" + data[position].id,
                         type: "PUT",
                         data: data[position]
                     });
@@ -162,7 +160,7 @@ $(document).ready(function () {
         }
     });
     //delete
-    $.getJSON("http://172.19.74.131:3000/posts", function (data) {
+    $.getJSON(url+"/posts", function (data) {
         var id = localStorage.getItem("id");
         for (i = 0; i < data.length; i++) {
             if (data[i].post_id == id) {
@@ -176,6 +174,20 @@ $(document).ready(function () {
             }
         }
     });
+    //camera
+    $("#take_pic").click(function(){        
+        navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+            destinationType: Camera.DestinationType.FILE_URI });
+        
+        function onSuccess(imageURI) {
+            var image = $("#img");
+            image.attr("src",imageURI);
+        }
+        
+        function onFail(message) {
+            alert('Failed because: ' + message);
+        }
+    }); 
 });
 //picture
 function readURL(input) {
@@ -195,7 +207,7 @@ function readURL(input) {
 //delete
 function deleter(id){
     $.ajax({
-        url: "http://172.19.74.131:3000/posts/"+id+"",
+        url: url+"/posts/"+id+"",
         type: "DELETE"
     });
     window.location = "setting.html";

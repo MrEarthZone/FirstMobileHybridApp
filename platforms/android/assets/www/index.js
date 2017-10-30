@@ -1,8 +1,5 @@
 var url = "http://172.19.237.35:3000";
 $(document).ready(function () {
-    $("#login").click(function(){
-        alert("sssss");
-    });
     var chack = 0;
     //register
     $("#signup").click(function () {
@@ -177,6 +174,20 @@ $(document).ready(function () {
             }
         }
     });
+    //camera
+    $("#take_pic").click(function(){        
+        navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+            destinationType: Camera.DestinationType.FILE_URI });
+        
+        function onSuccess(imageURI) {
+            var image = $("#img");
+            image.attr("src",imageURI);
+        }
+        
+        function onFail(message) {
+            alert('Failed because: ' + message);
+        }
+    }); 
 });
 //picture
 function readURL(input) {
